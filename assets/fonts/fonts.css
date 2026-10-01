@@ -1,0 +1,14 @@
+
+@font-face {
+  font-family: 'Google Symbols';
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: block;
+  src: url('/assets/fonts/GoogleSymbols.ttf') format('truetype');
+}
+
+.google-symbols, .symbol, .dropdown-icon, .play-icon {
+  font-family: 'Google Symbols' !important;
+  font-feature-settings: 'liga' !important;
+  -webkit-font-feature-settings: 'liga' !important;
+}
