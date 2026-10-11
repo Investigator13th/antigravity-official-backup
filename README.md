@@ -23,6 +23,9 @@ antigravity-official-backup/
 │   ├── images/                  # 界面截图、图标与位图资源
 │   └── videos/                  # 高清产品演示视频（支持 206 流式分段传输）
 ├── DESIGN-antigravity.md        # 完整设计规范系统与 Design Tokens 规范文档
+├── TECH-SPEC-REPRODUCTION.md    # ★ 面向零上下文 Agent 的 100% 高保真技术复现方案与工程规范
+├── resources/                   # ★ 100% 自包含静态资产包 (fonts/image/video/_astro/template)
+├── resources.zip                # ★ 便携式资源归档压缩包 (28.2 MB)
 ├── index.html                   # 官方展示落地页单页入口
 ├── package.json                 # 项目元数据与启动脚本定义
 ├── pnpm-lock.yaml               # 依赖锁定文件

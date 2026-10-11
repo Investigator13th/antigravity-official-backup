@@ -17,3 +17,8 @@ pnpm-debug.log*
 # Local environment variables
 .env
 .env.local
+
+# Backups & Archives
+index.html.bak
+resources.zip
+resources/
