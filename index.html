@@ -1363,147 +1363,225 @@
       </div>
     </div>
   </div>
-  <div class="landing-use-case-list astro-gk6ge62r">
+  <div class="landing-use-case-list astro-gk6ge62r" style="position: relative;">
     <div class="grid-container astro-gk6ge62r">
       <div class="grid-row astro-gk6ge62r">
-        <div class="grid-col col-xs-4 col-sm-8 col-md-8 astro-gk6ge62r">
-          <div class="slider-container usecases-slider astro-gk6ge62r astro-kb4uamjl" id="slider" data-slider data-active-index="0" data-item-count="3">
-            <div class="slider-track astro-kb4uamjl" data-track style="--item-count: 3;">
-              
-              <!-- SLIDE 0: Take a walk -->
-              <div class="slide-image astro-gk6ge62r" data-slide-index="0" data-youtube-url="">
-                <div class="slide-image-wrapper astro-gk6ge62r">
-                  <img class="list-image astro-gk6ge62r" src="/assets/image/landing/project-takeawalk.svg" alt="Take a walk">
-                </div>
-                <div class="slide-image-overlay astro-gk6ge62r">
-                  <span class="typed-container heading-4 astro-gk6ge62r astro-inbjnz4i" data-typed-header data-cursor-persists="true">
-                    <div class="cursor-container astro-inbjnz4i" data-cursor-container>
-                      <img class="blinking-cursor astro-inbjnz4i" src="/assets/image/antigravity-cursor.png" alt="" aria-hidden="true">
-                    </div>
-                    <span class="visually-hidden astro-inbjnz4i">Take a walk</span>
-                    <span class="typed-content astro-inbjnz4i" aria-hidden="true" translate="no" data-nosnippet>Take a walk</span>
-                  </span>
-                  <div class="video-control-button symbol astro-gk6ge62r" translate="no">directions_walk</div>
-                  <div class="custom-cursor-wrapper astro-paliblhy" data-custom-cursor-wrapper>
-                    <div class="custom-cursor astro-paliblhy" data-cursor>
-                      <div class="cursor-content astro-paliblhy">
-                        <span class="symbol astro-paliblhy" translate="no">directions_walk</span>
-                        <span class="call-to-action astro-paliblhy">Take a walk</span>
+        <div class="grid-col col-xs-4 col-sm-8 col-md-12 astro-gk6ge62r">
+          
+          <!-- 一体化大卡片轮播视口 -->
+          <div id="project-carousel-viewport" style="position: relative; overflow: hidden; width: 100%; border-radius: var(--shape-corner-xl, 36px);">
+            <div id="project-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); width: 300%; will-change: transform;">
+
+              <!-- CARD 0: Take a walk -->
+              <div class="project-carousel-slide" style="width: 33.333333%; box-sizing: border-box; padding: 2px;">
+                <div class="project-big-card" onclick="window.open('https://takeawalk.huangfei7273.xyz/', '_blank')" style="border-radius: var(--shape-corner-xl, 36px); background: #ffffff; border: 1px solid rgba(33, 34, 38, 0.08); overflow: hidden; position: relative; min-height: 440px; display: flex; flex-wrap: wrap; cursor: pointer; box-shadow: 0 12px 36px rgba(0,0,0,0.03); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.boxShadow='0 20px 48px rgba(0,0,0,0.06)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 12px 36px rgba(0,0,0,0.03)'; this.style.transform='translateY(0)'">
+                  
+                  <!-- 右侧预览图示层 (底层) -->
+                  <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 55%; height: 100%; pointer-events: none; overflow: hidden; display: flex; align-items: center; justify-content: flex-end; padding-right: 40px;">
+                    <svg width="480" height="320" viewBox="0 0 480 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
+                      <circle cx="340" cy="160" r="120" stroke="#1a73e8" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.35"/>
+                      <circle cx="340" cy="160" r="70" stroke="#34a853" stroke-width="1" opacity="0.4"/>
+                      <path d="M 40,220 C 140,220 180,80 280,80 C 380,80 380,240 460,240" stroke="#1a73e8" stroke-width="2.6" stroke-linecap="round"/>
+                      <path d="M 80,180 C 160,180 200,120 300,120 C 400,120 420,200 460,200" stroke="#34a853" stroke-width="2" stroke-dasharray="4 4" opacity="0.7"/>
+                      <!-- POI 锚点 -->
+                      <circle cx="280" cy="80" r="7" fill="#1a73e8" stroke="#ffffff" stroke-width="2"/>
+                      <circle cx="380" cy="180" r="6" fill="#34a853" stroke="#ffffff" stroke-width="2"/>
+                      <!-- 标签卡片 -->
+                      <g transform="translate(240, 40)">
+                        <rect width="110" height="32" rx="8" fill="#ffffff" stroke="#dadce0" stroke-width="1.2"/>
+                        <text x="55" y="20" text-anchor="middle" font-family="'Google Sans Flex', sans-serif" font-size="11" font-weight="600" fill="#1a73e8">腾讯 LBS 路径</text>
+                      </g>
+                    </svg>
+                  </div>
+
+                  <!-- 左到右线性透明渐变遮罩 (左实右透) -->
+                  <div style="position: absolute; inset: 0; background: linear-gradient(90deg, #ffffff 42%, rgba(255,255,255,0.88) 62%, rgba(255,255,255,0) 100%); pointer-events: none; z-index: 1;"></div>
+
+                  <!-- 左侧内容层 (置于渐变层之上) -->
+                  <div style="position: relative; z-index: 2; width: min(100%, 620px); padding: clamp(32px, 4.5vw, 48px); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                      <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;">
+                        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #e8f0fe; color: #1a73e8; padding: 2px 10px; border-radius: 999px;">React + FastAPI</span>
+                        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #e6f4ea; color: #137333; padding: 2px 10px; border-radius: 999px;">腾讯 LBS · DeepSeek</span>
                       </div>
+                      <h3 style="font-size: clamp(22px, 2.6vw, 30px); font-weight: 500; color: #121317; margin: 0 0 14px 0; line-height: 1.3;">
+                        Take a walk: 反内耗出门工具
+                      </h3>
+                      <p style="color: #45474d; line-height: 1.7; font-size: 15px; margin: 0 0 20px 0; max-width: 520px;">
+                        针对年轻人嫌做攻略累的痛点，以 React+FastAPI 融合腾讯 LBS 与 DeepSeek，降低出门门槛。按心理状态给 1—3 条建议，用真实 POI 与静默降级抗幻觉。
+                      </p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-top: 16px;">
+                      <span class="call-to-action button button-primary button-compact" style="display: inline-flex; align-items: center; gap: 6px; border-radius: 999px;">
+                        <span>在线体验作品 ↗</span>
+                      </span>
                     </div>
                   </div>
-                  <script type="module" src="/_astro/CustomCursor.astro_astro_type_script_index_0_lang.CPzCIKxN.js"></script>
+
                 </div>
               </div>
 
-              <!-- SLIDE 1: Troupe -->
-              <div class="slide-image astro-gk6ge62r" data-slide-index="1" data-youtube-url="">
-                <div class="slide-image-wrapper astro-gk6ge62r">
-                  <img class="list-image astro-gk6ge62r" src="/assets/image/landing/project-troupe.svg" alt="Troupe">
-                </div>
-                <div class="slide-image-overlay astro-gk6ge62r">
-                  <span class="typed-container heading-4 astro-gk6ge62r astro-inbjnz4i" data-typed-header data-cursor-persists="true">
-                    <div class="cursor-container astro-inbjnz4i" data-cursor-container>
-                      <img class="blinking-cursor astro-inbjnz4i" src="/assets/image/antigravity-cursor.png" alt="" aria-hidden="true">
-                    </div>
-                    <span class="visually-hidden astro-inbjnz4i">Troupe</span>
-                    <span class="typed-content astro-inbjnz4i" aria-hidden="true" translate="no" data-nosnippet>Troupe</span>
-                  </span>
-                  <div class="video-control-button symbol astro-gk6ge62r" translate="no">group</div>
-                  <div class="custom-cursor-wrapper astro-paliblhy" data-custom-cursor-wrapper>
-                    <div class="custom-cursor astro-paliblhy" data-cursor>
-                      <div class="cursor-content astro-paliblhy">
-                        <span class="symbol astro-paliblhy" translate="no">group</span>
-                        <span class="call-to-action astro-paliblhy">Troupe</span>
+              <!-- CARD 1: Troupe -->
+              <div class="project-carousel-slide" style="width: 33.333333%; box-sizing: border-box; padding: 2px;">
+                <div class="project-big-card" onclick="window.open('https://huangfei7273.xyz/', '_blank')" style="border-radius: var(--shape-corner-xl, 36px); background: #ffffff; border: 1px solid rgba(33, 34, 38, 0.08); overflow: hidden; position: relative; min-height: 440px; display: flex; flex-wrap: wrap; cursor: pointer; box-shadow: 0 12px 36px rgba(0,0,0,0.03); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.boxShadow='0 20px 48px rgba(0,0,0,0.06)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 12px 36px rgba(0,0,0,0.03)'; this.style.transform='translateY(0)'">
+                  
+                  <!-- 右侧预览图示层 -->
+                  <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 55%; height: 100%; pointer-events: none; overflow: hidden; display: flex; align-items: center; justify-content: flex-end; padding-right: 40px;">
+                    <svg width="480" height="320" viewBox="0 0 480 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
+                      <!-- Agent Mesh 蜂窝拓扑网络 -->
+                      <line x1="320" y1="160" x2="220" y2="100" stroke="#9333ea" stroke-width="1.8" stroke-dasharray="4 3"/>
+                      <line x1="320" y1="160" x2="420" y2="100" stroke="#1a73e8" stroke-width="1.8" stroke-dasharray="4 3"/>
+                      <line x1="320" y1="160" x2="240" y2="240" stroke="#34a853" stroke-width="1.8"/>
+                      <line x1="320" y1="160" x2="400" y2="240" stroke="#fbbc04" stroke-width="1.8"/>
+                      <line x1="220" y1="100" x2="420" y2="100" stroke="#dadce0" stroke-width="1.2"/>
+                      <!-- 中心 Coordinator Agent -->
+                      <circle cx="320" cy="160" r="32" fill="#ffffff" stroke="#9333ea" stroke-width="2.5" filter="drop-shadow(0 4px 12px rgba(147,51,234,0.15))"/>
+                      <text x="320" y="157" text-anchor="middle" font-family="'Google Sans Flex', sans-serif" font-size="11" font-weight="700" fill="#9333ea">Coordinator</text>
+                      <text x="320" y="171" text-anchor="middle" font-family="'Google Sans Code', monospace" font-size="9" fill="#5f6368">Mesh Hub</text>
+                      <!-- 周边 Agent 节点 -->
+                      <circle cx="220" cy="100" r="20" fill="#ffffff" stroke="#1a73e8" stroke-width="1.8"/>
+                      <circle cx="420" cy="100" r="20" fill="#ffffff" stroke="#34a853" stroke-width="1.8"/>
+                      <circle cx="240" cy="240" r="20" fill="#ffffff" stroke="#fbbc04" stroke-width="1.8"/>
+                      <circle cx="400" cy="240" r="20" fill="#ffffff" stroke="#ea4335" stroke-width="1.8"/>
+                    </svg>
+                  </div>
+
+                  <!-- 渐变遮罩 -->
+                  <div style="position: absolute; inset: 0; background: linear-gradient(90deg, #ffffff 42%, rgba(255,255,255,0.88) 62%, rgba(255,255,255,0) 100%); pointer-events: none; z-index: 1;"></div>
+
+                  <!-- 左侧内容层 -->
+                  <div style="position: relative; z-index: 2; width: min(100%, 620px); padding: clamp(32px, 4.5vw, 48px); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                      <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;">
+                        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #f3e8fd; color: #9333ea; padding: 2px 10px; border-radius: 999px;">Agent Mesh</span>
+                        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #e8f0fe; color: #1a73e8; padding: 2px 10px; border-radius: 999px;">Open-Harness</span>
                       </div>
+                      <h3 style="font-size: clamp(22px, 2.6vw, 30px); font-weight: 500; color: #121317; margin: 0 0 14px 0; line-height: 1.3;">
+                        Troupe: Agents 展台项目
+                      </h3>
+                      <p style="color: #45474d; line-height: 1.7; font-size: 15px; margin: 0 0 20px 0; max-width: 520px;">
+                        基于 DeepSeek Harness 与 Open-Harness 实现，以一个个独特 Agent 的形式展现日常生活与过往实习项目中沉淀下的 skills 与 workflows，持续迭代中。
+                      </p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-top: 16px;">
+                      <span class="call-to-action button button-primary button-compact" style="display: inline-flex; align-items: center; gap: 6px; border-radius: 999px;">
+                        <span>在线体验作品 ↗</span>
+                      </span>
                     </div>
                   </div>
+
                 </div>
               </div>
 
-              <!-- SLIDE 2: Anchor -->
-              <div class="slide-image astro-gk6ge62r" data-slide-index="2" data-youtube-url="">
-                <div class="slide-image-wrapper astro-gk6ge62r">
-                  <img class="list-image astro-gk6ge62r" src="/assets/image/landing/project-anchor.svg" alt="Anchor">
-                </div>
-                <div class="slide-image-overlay astro-gk6ge62r">
-                  <span class="typed-container heading-4 astro-gk6ge62r astro-inbjnz4i" data-typed-header data-cursor-persists="true">
-                    <div class="cursor-container astro-inbjnz4i" data-cursor-container>
-                      <img class="blinking-cursor astro-inbjnz4i" src="/assets/image/antigravity-cursor.png" alt="" aria-hidden="true">
-                    </div>
-                    <span class="visually-hidden astro-inbjnz4i">Anchor</span>
-                    <span class="typed-content astro-inbjnz4i" aria-hidden="true" translate="no" data-nosnippet>Anchor</span>
-                  </span>
-                  <div class="video-control-button symbol astro-gk6ge62r" translate="no">anchor</div>
-                  <div class="custom-cursor-wrapper astro-paliblhy" data-custom-cursor-wrapper>
-                    <div class="custom-cursor astro-paliblhy" data-cursor>
-                      <div class="cursor-content astro-paliblhy">
-                        <span class="symbol astro-paliblhy" translate="no">anchor</span>
-                        <span class="call-to-action astro-paliblhy">Anchor (PM Harness)</span>
+              <!-- CARD 2: Anchor -->
+              <div class="project-carousel-slide" style="width: 33.333333%; box-sizing: border-box; padding: 2px;">
+                <div class="project-big-card" onclick="event.preventDefault(); showToast('Anchor 项目紧密开发中，敬请期待！', '⚓');" style="border-radius: var(--shape-corner-xl, 36px); background: #ffffff; border: 1px solid rgba(33, 34, 38, 0.08); overflow: hidden; position: relative; min-height: 440px; display: flex; flex-wrap: wrap; cursor: pointer; box-shadow: 0 12px 36px rgba(0,0,0,0.03); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.boxShadow='0 20px 48px rgba(0,0,0,0.06)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 12px 36px rgba(0,0,0,0.03)'; this.style.transform='translateY(0)'">
+                  
+                  <!-- 右侧预览图示层 -->
+                  <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 55%; height: 100%; pointer-events: none; overflow: hidden; display: flex; align-items: center; justify-content: flex-end; padding-right: 40px;">
+                    <svg width="480" height="320" viewBox="0 0 480 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
+                      <!-- 确定性评测环形靶心 -->
+                      <circle cx="340" cy="160" r="110" stroke="#dadce0" stroke-width="1.5"/>
+                      <circle cx="340" cy="160" r="80" stroke="#b06000" stroke-width="1.8" stroke-dasharray="6 4" opacity="0.6"/>
+                      <circle cx="340" cy="160" r="45" fill="#fef7e0" stroke="#b06000" stroke-width="2"/>
+                      <circle cx="340" cy="160" r="14" fill="#b06000"/>
+                      <line x1="340" y1="30" x2="340" y2="290" stroke="#1a73e8" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.5"/>
+                      <line x1="210" y1="160" x2="470" y2="160" stroke="#1a73e8" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.5"/>
+                      <text x="340" y="210" text-anchor="middle" font-family="'Google Sans Flex', sans-serif" font-size="11" font-weight="700" fill="#b06000">Deterministic Eval</text>
+                    </svg>
+                  </div>
+
+                  <!-- 渐变遮罩 -->
+                  <div style="position: absolute; inset: 0; background: linear-gradient(90deg, #ffffff 42%, rgba(255,255,255,0.88) 62%, rgba(255,255,255,0) 100%); pointer-events: none; z-index: 1;"></div>
+
+                  <!-- 左侧内容层 -->
+                  <div style="position: relative; z-index: 2; width: min(100%, 620px); padding: clamp(32px, 4.5vw, 48px); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                      <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;">
+                        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #fef7e0; color: #b06000; padding: 2px 10px; border-radius: 999px;">PM Harness</span>
+                        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #e8f0fe; color: #1a73e8; padding: 2px 10px; border-radius: 999px;">Deterministic Eval</span>
                       </div>
+                      <h3 style="font-size: clamp(22px, 2.6vw, 30px); font-weight: 500; color: #121317; margin: 0 0 14px 0; line-height: 1.3;">
+                        Anchor: 面向 PM 的确定性 Harness
+                      </h3>
+                      <p style="color: #45474d; line-height: 1.7; font-size: 15px; margin: 0 0 20px 0; max-width: 520px;">
+                        Anchor 是一款 PM Harness（开发中） · Slogan："Coding Harness 让程序员敢让 Agent 改代码；Product Harness 让 PM 敢让 Agent 深度参与产品决策"。
+                      </p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-top: 16px;">
+                      <span class="call-to-action button button-secondary button-compact" style="display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; background: #f1f3f4; border: 1px solid rgba(33,34,38,0.1);">
+                        <span>In Development · 紧密开发中</span>
+                      </span>
                     </div>
                   </div>
+
                 </div>
               </div>
 
             </div>
           </div>
-          <script type="module" src="/_astro/Slider.astro_astro_type_script_index_0_lang.uOpsnXI6.js"></script>
-          <script type="module" src="/_astro/UseCases.astro_astro_type_script_index_0_lang.u0DwWsgt.js"></script>
 
-          <!-- COPY WRAPPER WITH STRICT SCOPED CLASS & CSS SAFEGUARD -->
-          <div class="slider-copy-wrapper astro-gk6ge62r" data-copy-wrapper>
-            
-            <!-- COPY 0: Take a walk -->
-            <div class="slider-copy is-active astro-gk6ge62r" data-copy-index="0">
-              <div class="astro-gk6ge62r" style="display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
-                <span class="astro-gk6ge62r" style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #e8f0fe; color: #1a73e8; padding: 2px 8px; border-radius: 999px;">React + FastAPI</span>
-                <span class="astro-gk6ge62r" style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #e6f4ea; color: #137333; padding: 2px 8px; border-radius: 999px;">腾讯 LBS · DeepSeek</span>
-              </div>
-              <strong class="call-to-action astro-gk6ge62r" style="font-size: 20px; color: #121317; display: block;">Take a walk: 反内耗出门工具</strong>
-              <p class="body astro-gk6ge62r" style="color: #45474d; line-height: 1.6; margin-top: 8px;">针对年轻人嫌做攻略累的痛点，以 React+FastAPI 融合腾讯 LBS 与 DeepSeek，降低出门门槛。按心理状态给 1—3 条建议，用真实 POI 与静默降级抗幻觉。</p>
-              <a class="call-to-action arrow-link astro-gk6ge62r" href="https://takeawalk.huangfei7273.xyz/" target="_blank" style="margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; color: #1a73e8; font-weight: 500;">
-                <span class="astro-gk6ge62r">在线体验作品 ↗</span>
-              </a>
+          <!-- 居中轮播切换控制器 (位于轮播卡片轴下方正中央) -->
+          <div style="display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 32px;">
+            <button id="project-prev-btn" type="button" aria-label="Previous project" style="width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(33, 34, 38, 0.12); background: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #121317; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.background='#f8f9fa'; this.style.borderColor='rgba(33,34,38,0.2)'" onmouseout="this.style.background='#ffffff'; this.style.borderColor='rgba(33,34,38,0.12)'">
+              <span class="symbol" style="font-family: 'Google Symbols'; font-size: 22px;">arrow_back</span>
+            </button>
+            <div id="project-indicators" style="display: flex; gap: 8px; align-items: center;">
+              <span class="proj-dot" data-index="0" style="width: 24px; height: 6px; border-radius: 999px; background: #1a73e8; transition: all 0.3s;"></span>
+              <span class="proj-dot" data-index="1" style="width: 6px; height: 6px; border-radius: 999px; background: #dadce0; transition: all 0.3s;"></span>
+              <span class="proj-dot" data-index="2" style="width: 6px; height: 6px; border-radius: 999px; background: #dadce0; transition: all 0.3s;"></span>
             </div>
-
-            <!-- COPY 1: Troupe -->
-            <div class="slider-copy astro-gk6ge62r" data-copy-index="1">
-              <div class="astro-gk6ge62r" style="display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
-                <span class="astro-gk6ge62r" style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #f3e8fd; color: #9333ea; padding: 2px 8px; border-radius: 999px;">Agent Mesh</span>
-                <span class="astro-gk6ge62r" style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #e8f0fe; color: #1a73e8; padding: 2px 8px; border-radius: 999px;">Open-Harness</span>
-              </div>
-              <strong class="call-to-action astro-gk6ge62r" style="font-size: 20px; color: #121317; display: block;">Troupe: Agents 展台项目</strong>
-              <p class="body astro-gk6ge62r" style="color: #45474d; line-height: 1.6; margin-top: 8px;">基于 DeepSeek Harness 与 Open-Harness 实现，以一个个独特 Agent 的形式展现日常生活与过往实习项目中沉淀下的 skills 与 workflows，持续迭代中。</p>
-              <a class="call-to-action arrow-link astro-gk6ge62r" href="https://huangfei7273.xyz/" target="_blank" style="margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; color: #1a73e8; font-weight: 500;">
-                <span class="astro-gk6ge62r">在线体验作品 ↗</span>
-              </a>
-            </div>
-
-            <!-- COPY 2: Anchor -->
-            <div class="slider-copy astro-gk6ge62r" data-copy-index="2">
-              <div class="astro-gk6ge62r" style="display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
-                <span class="astro-gk6ge62r" style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #fef7e0; color: #b06000; padding: 2px 8px; border-radius: 999px;">PM Harness</span>
-                <span class="astro-gk6ge62r" style="font-size: 11px; font-weight: 600; text-transform: uppercase; background: #e8f0fe; color: #1a73e8; padding: 2px 8px; border-radius: 999px;">Deterministic Eval</span>
-              </div>
-              <strong class="call-to-action astro-gk6ge62r" style="font-size: 20px; color: #121317; display: block;">Anchor: 面向 PM 的确定性 Harness</strong>
-              <p class="body astro-gk6ge62r" style="color: #45474d; line-height: 1.6; margin-top: 8px;">Anchor 是一款 PM Harness（开发中） · Slogan："Coding Harness 让程序员敢让 Agent 改代码；Product Harness 让 PM 敢让 Agent 深度参与产品决策"。</p>
-              <span class="caption astro-gk6ge62r" style="display: inline-block; margin-top: 14px; background: #e8f0fe; color: #1a73e8; padding: 4px 12px; border-radius: 999px; font-weight: 600;">In Development · 闭门开发中</span>
-            </div>
-
-            <!-- CONTROLS CONTAINER -->
-            <div class="slider-controls-container astro-gk6ge62r" data-arrow-controls-wrapper style="position: relative; z-index: 100; pointer-events: auto;">
-              <div class="slider-controls astro-gk6ge62r astro-iormbkgb" style="pointer-events: auto;">
-                <button class="slider-control-button symbol astro-iormbkgb" disabled data-arrow-left style="pointer-events: auto; cursor: pointer;">
-                  <span translate="no" class="astro-iormbkgb">keyboard_arrow_left</span>
-                </button>
-                <button class="slider-control-button symbol astro-iormbkgb" data-arrow-right style="pointer-events: auto; cursor: pointer;">
-                  <span translate="no" class="astro-iormbkgb">keyboard_arrow_right</span>
-                </button>
-              </div>
-            </div>
-
+            <button id="project-next-btn" type="button" aria-label="Next project" style="width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(33, 34, 38, 0.12); background: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #121317; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.background='#f8f9fa'; this.style.borderColor='rgba(33,34,38,0.2)'" onmouseout="this.style.background='#ffffff'; this.style.borderColor='rgba(33,34,38,0.12)'">
+              <span class="symbol" style="font-family: 'Google Symbols'; font-size: 22px;">arrow_forward</span>
+            </button>
           </div>
+
+          <script>
+            (function() {
+              let currentProjIndex = 0;
+              const totalProjects = 3;
+              const track = document.getElementById('project-carousel-track');
+              const prevBtn = document.getElementById('project-prev-btn');
+              const nextBtn = document.getElementById('project-next-btn');
+              const dots = document.querySelectorAll('.proj-dot');
+
+              function updateCarousel(idx) {
+                currentProjIndex = (idx + totalProjects) % totalProjects;
+                if (track) {
+                  track.style.transform = `translateX(-${currentProjIndex * (100 / totalProjects)}%)`;
+                }
+                dots.forEach((dot, i) => {
+                  if (i === currentProjIndex) {
+                    dot.style.width = '24px';
+                    dot.style.background = '#1a73e8';
+                  } else {
+                    dot.style.width = '6px';
+                    dot.style.background = '#dadce0';
+                  }
+                });
+              }
+
+              if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  updateCarousel(currentProjIndex - 1);
+                });
+              }
+
+              if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  updateCarousel(currentProjIndex + 1);
+                });
+              }
+
+              dots.forEach((dot, i) => {
+                dot.style.cursor = 'pointer';
+                dot.addEventListener('click', () => updateCarousel(i));
+              });
+            })();
+          </script>
+
         </div>
       </div>
     </div>
