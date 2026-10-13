@@ -1690,6 +1690,66 @@
       closeWechatModal();
     }
   });
+
+  // 顶部导航与所有锚点高阶物理缓动 (先快后慢，带加速度与缓缓吸附停靠)
+  (function() {
+    function handleSmoothAnchorClick(e) {
+      const anchor = e.target.closest('a');
+      if (!anchor) return;
+      const href = anchor.getAttribute('href');
+      if (!href || !href.startsWith('#') || href === '#') return;
+
+      const targetEl = document.querySelector(href);
+      if (!targetEl) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      // 避让顶部固定导航栏高度 (76px)
+      const headerOffset = 76;
+      const smoother = window.ScrollSmootherInstance;
+      
+      let targetY = 0;
+      if (smoother && typeof smoother.offset === 'function') {
+        targetY = smoother.offset(targetEl, 'top ' + headerOffset + 'px');
+      } else {
+        const rect = targetEl.getBoundingClientRect();
+        targetY = rect.top + window.pageYOffset - headerOffset;
+      }
+
+      const currentY = smoother ? smoother.scrollTop() : window.pageYOffset;
+      const proxy = { y: currentY };
+
+      if (window.gsap) {
+        window.gsap.to(proxy, {
+          y: targetY,
+          duration: 1.25, // 从容滑行时长
+          ease: 'power3.out', // 核心先快后慢：初始高加速度，中后段优雅减速，末段柔和吸附停靠
+          overwrite: 'auto',
+          onUpdate: function() {
+            if (smoother) {
+              smoother.scrollTop(proxy.y);
+            } else {
+              window.scrollTo(0, proxy.y);
+            }
+          },
+          onComplete: function() {
+            history.pushState(null, '', href);
+          }
+        });
+      } else {
+        if (smoother) {
+          smoother.scrollTo(targetEl, true, 'top ' + headerOffset + 'px');
+        } else {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+        history.pushState(null, '', href);
+      }
+    }
+
+    // 捕获阶段优先拦截锚点跳转
+    document.addEventListener('click', handleSmoothAnchorClick, true);
+  })();
 </script>
 
 <!-- Cookie Notification Bar --><script defer src="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.js" data-glue-cookie-notification-bar-category="2A" data-glue-cookie-notification-bar-language="" data-glue-cookie-notification-bar-site-id="">
