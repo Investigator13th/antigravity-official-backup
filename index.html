@@ -164,7 +164,7 @@
           <!-- 模块标题栏 -->
           <div style="margin-bottom: 28px;">
             <span style="font-family: 'Google Sans Flex', -apple-system, sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--palette-grey-800, #45474d);">Academia & Research</span>
-            <h2 style="font-family: 'Google Sans Flex', -apple-system, sans-serif; font-size: clamp(24px, 3vw, 34px); font-weight: 450; letter-spacing: -0.5px; color: var(--palette-grey-1200, #121317); margin: 4px 0 0 0;">教育经历与科研成果</h2>
+            <h2 style="font-family: 'Google Sans Flex', -apple-system, sans-serif; font-size: clamp(24px, 3vw, 34px); font-weight: 450; letter-spacing: -0.5px; color: var(--palette-grey-1200, #121317); margin: 4px 0 0 0;">学业与科研</h2>
           </div>
 
           <!-- 轮播视口（纯净全宽、支持手势拖拽） -->
@@ -1749,6 +1749,35 @@
 
     // 捕获阶段优先拦截锚点跳转
     document.addEventListener('click', handleSmoothAnchorClick, true);
+  })();
+
+  // 学业与科研卡片滚动缩放动效根治 (屏幕中央恢复 1.0)
+  (function() {
+    function initAcademiaCardScale() {
+      const card = document.querySelector('.academia-carousel-card');
+      if (!card || !window.gsap) return;
+      
+      window.gsap.fromTo(card, 
+        { scale: 0.84, transformOrigin: 'center center' },
+        {
+          scale: 1.0,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 92%',
+            end: 'center center', // 核心修复：恰好处在屏幕正中央时才达到 1.0 满尺寸
+            scrub: 1.2,
+            overwrite: 'auto'
+          }
+        }
+      );
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(initAcademiaCardScale, 300));
+    } else {
+      setTimeout(initAcademiaCardScale, 300);
+    }
   })();
 </script>
 

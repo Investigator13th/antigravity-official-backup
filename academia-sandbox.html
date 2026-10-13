@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>学业与科研 · 独立体验沙盒 · Felix Huang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,slnt,wdth,wght,ROND@8..144,-10..0,25..150,400..700,0..100&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital@0;1&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Symbols:opsz,wght,FILL,GRAD,ROND@20..48,100..700,0..1,-50..200,0..100&display=block">
+  <style>
+    :root {
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-main: #121317;
+      --text-sub: #45474d;
+      --text-muted: #5f6368;
+      --border-color: rgba(33, 34, 38, 0.08);
+      --accent-blue: #1a73e8;
+      --accent-green: #34a853;
+      --accent-green-dark: #137333;
+      --shape-xl: 36px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 80px 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 顶部提示横条 */
+    .sandbox-banner {
+      max-width: 1120px;
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+    }
+
+    .sandbox-banner-title {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sandbox-tag {
+      background: #e8f0fe;
+      color: var(--accent-blue);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-blue);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.8; }
+
+    /* 3D 翻转名片外层容器 */
+    .card-perspective-wrapper {
+      perspective: 1600px;
+      max-width: 1120px;
+      width: 100%;
+    }
+
+    .flipper-card {
+      position: relative;
+      width: 100%;
+      min-height: 640px;
+      transform-style: preserve-3d;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .flipper-card.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* 正反面通用样式 */
+    .card-face {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      min-height: 640px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: var(--shape-xl);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.04);
+      padding: clamp(32px, 4vw, 52px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    /* 反面卡片 */
+    .card-face.face-back {
+      transform: rotateY(180deg);
+    }
+
+    /* 右侧校徽水印与渐变 */
+    .face-watermark-bg {
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: clamp(260px, 35vw, 420px);
+      height: clamp(260px, 35vw, 420px);
+      pointer-events: none;
+      opacity: 0.07;
+      object-fit: contain;
+      filter: grayscale(100%);
+      mask-image: linear-gradient(135deg, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+      z-index: 1;
+    }
+
+    .card-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .card-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .school-title {
+      font-size: clamp(26px, 3.2vw, 36px);
+      font-weight: 500;
+      letter-spacing: -0.6px;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .degree-sub {
+      font-size: 15px;
+      color: var(--text-sub);
+      margin-top: 6px;
+      font-weight: 450;
+    }
+
+    /* 3D 翻面按钮 (磁性指示) */
+    .flip-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid rgba(33, 34, 38, 0.16);
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 550;
+      color: var(--text-main);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .flip-trigger-btn:hover {
+      background: #f1f3f4;
+      border-color: rgba(33, 34, 38, 0.25);
+      transform: translateY(-1px);
+    }
+    .flip-trigger-btn .symbol {
+      font-family: 'Google Symbols';
+      font-size: 18px;
+      transition: transform 0.4s;
+    }
+    .flip-trigger-btn:hover .symbol {
+      transform: rotate(180deg);
+    }
+
+    /* 双轨时间轴容器 */
+    .timeline-interactive-area {
+      position: relative;
+      z-index: 2;
+      margin-top: 10px;
+      padding: 20px 10px 30px 10px;
+    }
+
+    .timeline-svg-canvas {
+      width: 100%;
+      height: 200px;
+      display: block;
+      overflow: visible;
+    }
+
+    /* 交互节点与气泡 */
+    .timeline-node-group {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .timeline-node-group:hover {
+      transform: scale(1.08);
+    }
+
+    /* 下方详细抽屉 / 卡片详情 */
+    .node-detail-panel {
+      position: relative;
+      z-index: 2;
+      background: #fafafb;
+      border: 1px solid rgba(33, 34, 38, 0.08);
+      border-radius: 20px;
+      padding: 22px 28px;
+      margin-top: 10px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .panel-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .panel-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-sub);
+    }
+
+    /* 硕士背面内容样式 */
+    .masters-content-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .master-item-card {
+      background: #fafafb;
+      border: 1px solid rgba(33, 34, 38, 0.08);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .master-item-tag {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+
+    /* 图例指示器 */
+    .timeline-legend {
+      display: flex;
+      gap: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-line {
+      width: 18px;
+      height: 3px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部沙盒指引条 -->
+  <div class="sandbox-banner">
+    <div class="sandbox-banner-title">
+      <span class="sandbox-tag">Sandbox Preview</span>
+      <span>学业与科研 · 双面卡片与双轨时间轴独立沙盒</span>
+    </div>
+    <a href="/" class="back-link">
+      <span>返回个人主页 ↗</span>
+    </a>
+  </div>
+
+  <!-- 3D 翻转卡片视口 -->
+  <div class="card-perspective-wrapper">
+    <div class="flipper-card" id="flipper-card">
+
+      <!-- ============================================================ -->
+      <!-- 正面: 江南大学 (2020.09 – 2024.08 双轨时间轴) -->
+      <!-- ============================================================ -->
+      <div class="card-face face-front">
+        <!-- 江南大学校徽水印渐变 -->
+        <img class="face-watermark-bg" src="/assets/image/academia/jiangnan-logo.png" alt="江南大学">
+
+        <div>
+          <!-- 头部信息 -->
+          <div class="card-header">
+            <div>
+              <div class="card-badge-row">
+                <span style="font-family:'Google Sans Code',monospace; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1px; background:#e6f4ea; color:#137333; padding:2px 10px; border-radius:999px;">Undergraduate · 本科阶段</span>
+                <span style="font-family:'Google Sans Code',monospace; font-size:13px; color:#6a6a71;">2020.09 – 2024.08</span>
+              </div>
+              <h2 class="school-title">
+                江南大学
+                <span style="font-size:14px; font-weight:450; background:#f0f2f5; color:#45474d; padding:2px 10px; border-radius:999px;">211工程 · 无锡</span>
+              </h2>
+              <div class="degree-sub">
+                工商管理（主修） · 信息与计算科学（辅修）
+              </div>
+            </div>
+
+            <!-- 翻面引导按钮 -->
+            <button type="button" class="flip-trigger-btn" onclick="toggleCardFlip()">
+              <span>查看东南大学（硕士）</span>
+              <span class="symbol">sync</span>
+            </button>
+          </div>
+
+          <!-- 双轨时间轴交互区 -->
+          <div class="timeline-interactive-area">
+            <svg class="timeline-svg-canvas" viewBox="0 0 960 180">
+              <!-- 定义箭头与阴影 -->
+              <defs>
+                <filter id="node-glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.12"/>
+                </filter>
+              </defs>
+
+              <!-- 时间刻度参考底线 -->
+              <line x1="60" y1="160" x2="900" y2="160" stroke="#f1f3f4" stroke-width="1"/>
+              <text x="60" y="175" font-family="'Google Sans Code', monospace" font-size="11" fill="#9aa0a6" text-anchor="middle">2020.09</text>
+              <text x="270" y="175" font-family="'Google Sans Code', monospace" font-size="11" fill="#9aa0a6" text-anchor="middle">2021.09</text>
+              <text x="480" y="175" font-family="'Google Sans Code', monospace" font-size="11" fill="#9aa0a6" text-anchor="middle">2022.06</text>
+              <text x="690" y="175" font-family="'Google Sans Code', monospace" font-size="11" fill="#9aa0a6" text-anchor="middle">2023.05</text>
+              <text x="900" y="175" font-family="'Google Sans Code', monospace" font-size="11" fill="#9aa0a6" text-anchor="middle">2024.08</text>
+
+              <!-- 主线时间轴 (绿色 #34a853): 工商管理主修 -->
+              <path d="M 60,110 L 900,110" stroke="#34a853" stroke-width="4" stroke-linecap="round"/>
+
+              <!-- 支线时间轴 (蓝色 #1a73e8): 2021.09 分叉出信息与计算科学辅修 -->
+              <!-- 平滑贝塞尔分叉曲线: 从 (270, 110) 平滑弯曲分叉到 (370, 45)，然后水平延伸至 900 -->
+              <path d="M 270,110 C 310,110 330,45 370,45 L 900,45" stroke="#1a73e8" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 3"/>
+
+              <!-- 关键节点 1 (2020.09 本科入学) -->
+              <g class="timeline-node-group" onclick="selectNode(0)" transform="translate(60, 110)">
+                <circle cx="0" cy="0" r="10" fill="#ffffff" stroke="#34a853" stroke-width="3" filter="url(#node-glow)"/>
+                <circle cx="0" cy="0" r="4" fill="#34a853"/>
+                <text x="0" y="-18" font-family="'Google Sans Flex', sans-serif" font-size="11" font-weight="600" fill="#137333" text-anchor="middle">入学启程</text>
+              </g>
+
+              <!-- 关键节点 2 (2021.09 辅修分叉点) -->
+              <g class="timeline-node-group" onclick="selectNode(1)" transform="translate(270, 110)">
+                <circle cx="0" cy="0" r="12" fill="#ffffff" stroke="#1a73e8" stroke-width="3" filter="url(#node-glow)"/>
+                <circle cx="0" cy="0" r="5" fill="#1a73e8"/>
+                <text x="0" y="26" font-family="'Google Sans Flex', sans-serif" font-size="11" font-weight="600" fill="#1a73e8" text-anchor="middle">辅修分叉 ⌥</text>
+              </g>
+
+              <!-- 支线节点: 辅修计算科学进阶 (2021.09 ~ 2022) -->
+              <g class="timeline-node-group" onclick="selectNode(2)" transform="translate(420, 45)">
+                <circle cx="0" cy="0" r="9" fill="#ffffff" stroke="#1a73e8" stroke-width="2.5" filter="url(#node-glow)"/>
+                <circle cx="0" cy="0" r="3.5" fill="#1a73e8"/>
+                <text x="0" y="-16" font-family="'Google Sans Flex', sans-serif" font-size="11" font-weight="600" fill="#1a73e8" text-anchor="middle">高等代数/Python</text>
+              </g>
+
+              <!-- 主线节点: 省级大创结项 (2022.06) -->
+              <g class="timeline-node-group" onclick="selectNode(3)" transform="translate(480, 110)">
+                <circle cx="0" cy="0" r="10" fill="#ffffff" stroke="#34a853" stroke-width="3" filter="url(#node-glow)"/>
+                <circle cx="0" cy="0" r="4" fill="#34a853"/>
+                <text x="0" y="-18" font-family="'Google Sans Flex', sans-serif" font-size="11" font-weight="600" fill="#137333" text-anchor="middle">省级大创 · 结项</text>
+              </g>
+
+              <!-- 支线节点: 数据结构与算法/运筹 (2023.05) -->
+              <g class="timeline-node-group" onclick="selectNode(4)" transform="translate(690, 45)">
+                <circle cx="0" cy="0" r="9" fill="#ffffff" stroke="#1a73e8" stroke-width="2.5" filter="url(#node-glow)"/>
+                <circle cx="0" cy="0" r="3.5" fill="#1a73e8"/>
+                <text x="0" y="-16" font-family="'Google Sans Flex', sans-serif" font-size="11" font-weight="600" fill="#1a73e8" text-anchor="middle">全栈与数据科学</text>
+              </g>
+
+              <!-- 主线节点: 毕业与学位授予 (2024.08) -->
+              <g class="timeline-node-group" onclick="selectNode(5)" transform="translate(900, 110)">
+                <circle cx="0" cy="0" r="12" fill="#ffffff" stroke="#34a853" stroke-width="3" filter="url(#node-glow)"/>
+                <circle cx="0" cy="0" r="5" fill="#34a853"/>
+                <text x="0" y="28" font-family="'Google Sans Flex', sans-serif" font-size="11" font-weight="600" fill="#137333" text-anchor="middle">毕业 · 双学位</text>
+              </g>
+            </svg>
+
+            <!-- 图例说明 -->
+            <div class="timeline-legend">
+              <div class="legend-item">
+                <span class="legend-line" style="background:#34a853;"></span>
+                <span>主线：工商管理（主修）</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-line" style="background:#1a73e8; border-top:1px dashed #1a73e8;"></span>
+                <span>支线：信息与计算科学（2021.09 分叉辅修）</span>
+              </div>
+              <div style="margin-left: auto; font-size: 12px; color: #80868b;">
+                💡 点击/Hover 各节点查看经历详情
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 节点交互详情抽屉卡片 -->
+        <div class="node-detail-panel" id="node-detail-panel">
+          <div class="panel-title" id="panel-title">
+            <span style="background:#e8f0fe; color:#1a73e8; font-size:11px; padding:2px 8px; border-radius:4px;" id="panel-tag">分叉节点</span>
+            <span id="panel-heading">2021.09 · 信息与计算科学辅修启航</span>
+          </div>
+          <div class="panel-desc" id="panel-content">
+            在扎实掌握商业分析、组织行为与管理经济学的基础上，主动拓展工程与量化边界。从 2021 年秋季学期起系统修读高等代数、离散数学、数据结构与面向对象编程，为后续转型 AI 产品经理与全栈 Builder 奠定底层数理基础。
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- 反面: 东南大学 (硕士研究生阶段) -->
+      <!-- ============================================================ -->
+      <div class="card-face face-back">
+        <!-- 东南大学校徽水印渐变 -->
+        <img class="face-watermark-bg" src="/assets/image/academia/seu-logo.png" alt="东南大学">
+
+        <div>
+          <!-- 头部信息 -->
+          <div class="card-header">
+            <div>
+              <div class="card-badge-row">
+                <span style="font-family:'Google Sans Code',monospace; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1px; background:#e8f0fe; color:#1a73e8; padding:2px 10px; border-radius:999px;">Postgraduate · 硕士研究生</span>
+                <span style="font-family:'Google Sans Code',monospace; font-size:13px; color:#6a6a71;">2024.09 – 至今</span>
+              </div>
+              <h2 class="school-title">
+                东南大学
+                <span style="font-size:14px; font-weight:450; background:#f0f2f5; color:#45474d; padding:2px 10px; border-radius:999px;">985工程 · 双一流A类 · 南京</span>
+              </h2>
+              <div class="degree-sub">
+                经济管理学院 · 聚焦 AI Native 产品与 Agent 智能体系统研究
+              </div>
+            </div>
+
+            <!-- 翻面引导按钮 -->
+            <button type="button" class="flip-trigger-btn" onclick="toggleCardFlip()">
+              <span>翻回江南大学（本科）</span>
+              <span class="symbol">sync</span>
+            </button>
+          </div>
+
+          <!-- 硕士研究与科研实践网格 -->
+          <div class="masters-content-grid">
+            
+            <div class="master-item-card">
+              <span class="master-item-tag" style="background:#e8f0fe; color:#1a73e8;">学术前沿探索</span>
+              <h4 style="font-size:17px; font-weight:550; color:#121317;">Agent Memory 与决策可靠性研究</h4>
+              <p style="font-size:13.5px; line-height:1.65; color:#45474d;">
+                关注 LLM/Agent 在垂直企业场景的长时记忆架构、知识图谱与业务语义对齐机制。围绕“如何消除 Agent 幻觉以实现确定性交付”展开实证推演。
+              </p>
+            </div>
+
+            <div class="master-item-card">
+              <span class="master-item-tag" style="background:#f3e8fd; color:#9333ea;">全栈工程落地</span>
+              <h4 style="font-size:17px; font-weight:550; color:#121317;">AI Native 产品与 Harness 评测框架</h4>
+              <p style="font-size:13.5px; line-height:1.65; color:#45474d;">
+                自主开发与开源 Take a walk、Troupe 等全栈项目，研发面向 PM 的确定性测试框架 Anchor，推动商业洞察与代码实现深度融合。
+              </p>
+            </div>
+
+            <div class="master-item-card">
+              <span class="master-item-tag" style="background:#e6f4ea; color:#137333;">第一性原理思考</span>
+              <h4 style="font-size:17px; font-weight:550; color:#121317;">FDE 交付与垂直行业 AI 提效</h4>
+              <p style="font-size:13.5px; line-height:1.65; color:#45474d;">
+                结合同花顺与一知智能一线实战经历，沉淀 10+ 业务提效 Skills 与多阶段 Workflow，以量化指标驱动真实业务增长与确定性签单。
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div style="font-size:13px; color:#5f6368; padding-top:16px; border-top:1px solid rgba(33,34,38,0.08); display:flex; justify-content:space-between; align-items:center;">
+          <span>东南大学 · 止于至善</span>
+          <span style="font-family:'Google Sans Code', monospace; color:#1a73e8;">SEU · Graduate Research</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // 卡片 3D 翻转控制
+    function toggleCardFlip() {
+      const flipper = document.getElementById('flipper-card');
+      if (flipper) {
+        flipper.classList.toggle('is-flipped');
+      }
+    }
+
+    // 时间轴节点数据驱动
+    const nodeDetails = [
+      {
+        tag: '主修起步',
+        title: '2020.09 · 江南大学工商管理专业入学',
+        content: '主修工商管理专业，系统学习商业运营、微观/宏观经济学、战略管理与统计学方法，培养敏锐的商业敏感度与严谨的第一性原理思考方式。'
+      },
+      {
+        tag: '核心分叉',
+        title: '2021.09 · 分叉辅修：信息与计算科学',
+        content: '为打破纯商业背景壁垒，主动修读第二学位——信息与计算科学。系统打磨高等代数、概率论、Python 与数据分析算法，开启商业与代码复合全栈之路。'
+      },
+      {
+        tag: '数理进阶',
+        title: '2021 – 2022 · 计算机科学底层能力沉淀',
+        content: '深入学习离散数学、数据结构、数据库原理与 Linux 系统操作，能够自主编写自动化脚本与数据清洗管道，为后续处理金融大数据打下坚实底层基石。'
+      },
+      {
+        tag: '科研实践',
+        title: '2022.06 · 省级大学生创新训练项目（顺利结项）',
+        content: '作为核心技术骨干主导多模态数据分析与算法模型构建，攻克异构数据对齐卡点，以优异成绩顺利通过省级专家组结项评审。'
+      },
+      {
+        tag: '全栈实战',
+        title: '2023.05 · 商业分析竞赛与全栈应用开发',
+        content: '斩获多项商业分析与数学建模荣誉，主导自主全栈原型构建（FastAPI + React），具备将复杂业务流程迅速产品化落地的实操能力。'
+      },
+      {
+        tag: '双学位授予',
+        title: '2024.08 · 本科毕业：管理学学士 + 理学辅修证书',
+        content: '完成高质量毕业设计，荣获江南大学管理学学士学位与信息与计算科学辅修证书，同年以优异成绩保送/考入东南大学攻读硕士学位。'
+      }
+    ];
+
+    function selectNode(index) {
+      const item = nodeDetails[index];
+      if (!item) return;
+      document.getElementById('panel-tag').textContent = item.tag;
+      document.getElementById('panel-heading').textContent = item.title;
+      document.getElementById('panel-content').textContent = item.content;
+    }
+  </script>
+</body>
+</html>
